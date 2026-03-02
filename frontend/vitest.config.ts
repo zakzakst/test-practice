@@ -18,7 +18,13 @@ export default defineConfig({
       {
         extends: true,
         plugins: [
-          storybookTest({ configDir: path.join(dirname, ".storybook") }),
+          storybookTest({
+            configDir: path.join(dirname, ".storybook"),
+            tags: {
+              // include: ["test"],
+              exclude: ["experimental"],
+            },
+          }),
         ],
         test: {
           name: "storybook",
