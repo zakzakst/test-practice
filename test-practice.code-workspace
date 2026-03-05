@@ -1,8 +1,11 @@
 {
   "folders": [
     {
-      "path": "./"
-    }
+      "path": "./frontend",
+    },
+    {
+      "path": "./backend",
+    },
   ],
   "settings": {
     "workbench.editor.pinnedTabsOnSeparateRow": true,
@@ -19,9 +22,9 @@
     "github.copilot.enable": {
       "*": false,
       "typescript": false,
-      "yaml": false
+      "yaml": false,
     },
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
 }
