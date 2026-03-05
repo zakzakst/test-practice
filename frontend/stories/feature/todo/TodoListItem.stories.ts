@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { TodoListItem } from "@/components/feature/todo/TodoListItem";
+import { fn } from "storybook/test";
 
 const meta = {
   title: "Feature/Todo/TodoListItem",
@@ -13,6 +14,7 @@ const meta = {
       control: "boolean",
     },
   },
+  args: { onChangeCompleted: fn() },
 } satisfies Meta<typeof TodoListItem>;
 
 export default meta;
