@@ -25,18 +25,21 @@ export const TodoListItem = ({
   const handleEdit = () => {};
 
   return (
-    <div>
+    <div className="grid grid-cols-3">
       <div>
-        <p>{title}</p>
-        <div>
-          <Input />
-        </div>
+        {editable ? (
+          <div>
+            <Input />
+          </div>
+        ) : (
+          <p>{title}</p>
+        )}
       </div>
       <div>
         {editable ? (
           <Button onClick={handleEdit}>決定</Button>
         ) : (
-          <Button onClick={() => handleEditable(editable)}>編集</Button>
+          <Button onClick={() => handleEditable(!editable)}>編集</Button>
         )}
       </div>
       <Switch />
