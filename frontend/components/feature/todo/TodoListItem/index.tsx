@@ -7,10 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 
-interface Props extends Omit<Todo, "userId"> {
-  onChangeTitle: (title: string) => {};
-  onChangeCompleted: (completed: boolean) => {};
-}
+export type Props = Omit<Todo, "userId"> & {
+  onChangeTitle: (title: string) => void;
+  onChangeCompleted: (completed: boolean) => void;
+};
 
 export const TodoListItem = ({
   id,
@@ -28,7 +28,10 @@ export const TodoListItem = ({
   }, [onChangeTitle, inputTitle, setEditable]);
 
   return (
-    <div className="grid grid-cols-[1fr_100px_fit-content(100px)] gap-2 items-center">
+    <div
+      className="grid grid-cols-[1fr_100px_fit-content(100px)] gap-2 items-center"
+      data-id={id}
+    >
       <div>
         {editable ? (
           <Input
@@ -58,6 +61,7 @@ export const TodoListItem = ({
         aria-label="完了にする"
         checked={completed}
         onCheckedChange={onChangeCompleted}
+        disabled={editable}
       />
     </div>
   );
