@@ -14,7 +14,10 @@ const meta = {
       control: "boolean",
     },
   },
-  args: { onChangeCompleted: fn() },
+  args: {
+    onChangeTitle: fn(),
+    onChangeCompleted: fn(),
+  },
 } satisfies Meta<typeof TodoListItem>;
 
 export default meta;
