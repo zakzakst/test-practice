@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
+  // PaginationEllipsis,
   PaginationItem,
 } from "@/components/ui/pagination";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
@@ -20,42 +20,36 @@ const ButtonPaginationButton = ({ isActive, ...rest }: ButtonProps) => {
 
 export type Props = {
   total?: number;
-  perPage?: number;
+  itemsPerPage?: number;
   current?: number;
   onMovePage: (page: number) => void;
 };
 
 export const ButtonPagination = ({
   total,
-  perPage,
+  itemsPerPage = 10,
   current,
   onMovePage,
 }: Props) => {
+  if (!total || !current) return null;
+
   const isShowPrev = useMemo<boolean>(() => {
-    return true;
-  }, []);
+    return current > 1;
+  }, [current]);
 
   const isShowNext = useMemo<boolean>(() => {
-    return true;
-  }, []);
+    return current < Math.ceil(total / itemsPerPage);
+  }, [current, total, itemsPerPage]);
 
-  const items = useMemo<{ page: number; isActive?: boolean }[]>(() => {
-    return [
-      {
-        page: 1,
-      },
-      {
-        page: 2,
-        isActive: true,
-      },
-      {
-        page: 3,
-      },
-    ];
+  const pages = useMemo<number[]>(() => {
+    const pagesNum = Math.ceil(total / itemsPerPage);
+    return Array(pagesNum)
+      .fill(null)
+      .map((_, index) => index + 1);
   }, []);
 
   const handleClickButton = (to: number | "prev" | "next") => {
-    if (!current) return;
+    if (!current || to === current) return;
     switch (to) {
       case "prev":
         onMovePage(current - 1);
@@ -73,19 +67,23 @@ export const ButtonPagination = ({
       <PaginationContent>
         {isShowPrev && (
           <PaginationItem>
-            <ButtonPaginationButton onClick={() => handleClickButton("prev")}>
+            <ButtonPaginationButton
+              onClick={() => handleClickButton("prev")}
+              data-testid="button-pagination-button-prev"
+            >
               <ChevronLeftIcon />
-              <span className="hidden sm:block">Previous</span>
+              <span className="hidden sm:block">前へ</span>
             </ButtonPaginationButton>
           </PaginationItem>
         )}
-        {items.map((item) => (
-          <PaginationItem>
+        {pages.map((page) => (
+          <PaginationItem key={page}>
             <ButtonPaginationButton
-              isActive={item.isActive}
-              onClick={() => handleClickButton(item.page)}
+              isActive={page === current}
+              onClick={() => handleClickButton(page)}
+              data-testid={`button-pagination-button-${page}`}
             >
-              {item.page}
+              {page}
             </ButtonPaginationButton>
           </PaginationItem>
         ))}
@@ -94,8 +92,11 @@ export const ButtonPagination = ({
         </PaginationItem> */}
         {isShowNext && (
           <PaginationItem>
-            <ButtonPaginationButton onClick={() => handleClickButton("next")}>
-              <span className="hidden sm:block">Next</span>
+            <ButtonPaginationButton
+              onClick={() => handleClickButton("next")}
+              data-testid="button-pagination-button-next"
+            >
+              <span className="hidden sm:block">次へ</span>
               <ChevronRightIcon />
             </ButtonPaginationButton>
           </PaginationItem>

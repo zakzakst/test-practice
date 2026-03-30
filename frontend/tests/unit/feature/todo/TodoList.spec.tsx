@@ -5,8 +5,7 @@ import { TodoItemsMock } from "@/mocks/feature/todo";
 
 describe("TodoList", () => {
   test("TODOのタイトルが表示される", () => {
-    const handleChangeItem = vi.fn();
-    render(<TodoList items={TodoItemsMock} onChangeItem={handleChangeItem} />);
+    render(<TodoList items={TodoItemsMock} onChangeItem={() => {}} />);
 
     expect(screen.getByText("モックのTODOタイトル0")).toBeInTheDocument();
     expect(screen.getByText("モックのTODOタイトル1")).toBeInTheDocument();
