@@ -3,12 +3,12 @@ import type { TodoItem } from "@/components/feature/todo/TodoList";
 export const TodoItemsMock: TodoItem[] = [
   {
     id: 0,
-    title: "test",
+    title: "モックのTODOタイトル0",
     completed: false,
   },
   {
     id: 1,
-    title: "test2",
+    title: "モックのTODOタイトル1",
     completed: true,
   },
 ];

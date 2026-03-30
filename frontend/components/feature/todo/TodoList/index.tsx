@@ -39,6 +39,7 @@ export const TodoListItem = ({
           <Input
             value={inputTitle}
             onChange={(e) => setInputTitle(e.target.value)}
+            data-testid={`todo-list-title-input-${id}`}
           />
         ) : (
           <p className={clsx({ "line-through": completed })}>{title}</p>
@@ -46,7 +47,11 @@ export const TodoListItem = ({
       </div>
       <div>
         {editable ? (
-          <Button className="w-full" onClick={handleEdit}>
+          <Button
+            className="w-full"
+            onClick={handleEdit}
+            data-testid={`todo-list-title-submit-button-${id}`}
+          >
             決定
           </Button>
         ) : (
@@ -54,6 +59,7 @@ export const TodoListItem = ({
             className="w-full"
             onClick={() => setEditable(true)}
             disabled={completed}
+            data-testid={`todo-list-title-edit-button-${id}`}
           >
             編集
           </Button>
@@ -64,6 +70,7 @@ export const TodoListItem = ({
         checked={completed}
         onCheckedChange={onChangeCompleted}
         disabled={editable}
+        data-testid={`todo-list-complete-switch-${id}`}
       />
     </div>
   );
