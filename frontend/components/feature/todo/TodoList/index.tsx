@@ -102,7 +102,7 @@ export const TodoList = ({ items, onChangeItem }: Props) => {
   if (items.length < 1) return <div>TODOがありません</div>;
 
   return (
-    <div>
+    <div className="grid grid-cols-1 gap-2">
       {items.map((item) => (
         <TodoListItem
           key={item.id}
