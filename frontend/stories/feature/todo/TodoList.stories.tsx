@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { TodoList } from "@/components/feature/todo/TodoList";
+import { TodoItemsMock } from "@/mocks/feature/todo";
 import { fn } from "storybook/test";
 
 const meta = {
@@ -16,18 +17,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    items: [
-      {
-        id: 0,
-        title: "test",
-        completed: false,
-      },
-      {
-        id: 1,
-        title: "test2",
-        completed: true,
-      },
-    ],
+    items: TodoItemsMock,
   },
 };
 
