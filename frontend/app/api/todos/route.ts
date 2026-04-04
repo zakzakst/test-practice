@@ -7,11 +7,12 @@ export const GET = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/todos", {
     headers: {
       "Content-Type": "application/json",
-      "API-Key": process.env.DATA_API_KEY as string,
+      // "API-Key": process.env.DATA_API_KEY as string,
     },
   });
   const data = (await res.json()) as Todo[];
   const limitedData = data.slice(0, 10);
 
+  // TODO: totalやitemsとかのオブジェクトする
   return Response.json({ data: limitedData });
 };
