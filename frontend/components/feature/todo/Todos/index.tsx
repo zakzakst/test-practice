@@ -28,6 +28,7 @@ export const Todos = () => {
     postFetcher,
   );
 
+  // TODO: コンポーネント内部の関数をモックすることって可能なのか？調べる
   const handleChangeItem = (item: TodoItem) => {
     trigger({ item });
   };
