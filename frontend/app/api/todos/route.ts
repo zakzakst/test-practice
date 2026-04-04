@@ -1,9 +1,28 @@
+import { NextResponse, NextRequest } from "next/server";
+import lodash from "lodash";
 import { Todo } from "@/types/todo";
 
-export const dynamic = "force-static";
+type GetParams = {
+  page: number;
+};
+
+type GetResponse = {
+  data: {
+    page: number;
+    total: number;
+    items: Todo[];
+  };
+};
 
 // TODO: パラメータを受け取ってページ数を指定する方法調べる
-export const GET = async () => {
+export const GET = async (
+  request: NextRequest,
+): Promise<NextResponse<GetResponse>> => {
+  const searchParams = request.nextUrl.searchParams;
+  const page = Number(searchParams.get("page"));
+  const formattedPage: GetParams["page"] =
+    lodash.isInteger(page) && page > 0 ? page : 1;
+
   const res = await fetch("https://jsonplaceholder.typicode.com/todos", {
     headers: {
       "Content-Type": "application/json",
@@ -11,8 +30,15 @@ export const GET = async () => {
     },
   });
   const data = (await res.json()) as Todo[];
-  const limitedData = data.slice(0, 10);
+  const startNum = (formattedPage - 1) * 10;
+  const limitedData = data.slice(startNum, startNum + 10);
 
   // TODO: totalやitemsとかのオブジェクトする
-  return Response.json({ data: limitedData });
+  return NextResponse.json({
+    data: {
+      page: formattedPage,
+      total: 100,
+      items: limitedData,
+    },
+  });
 };
