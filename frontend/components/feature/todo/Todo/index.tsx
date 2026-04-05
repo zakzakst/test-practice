@@ -5,7 +5,7 @@ import {
   TodoListItem,
   type TodoItem,
 } from "@/components/feature/todo/TodoList";
-import { useGetTodo } from "@/hooks/useTodo4";
+import { useGetTodo, usePutTodo } from "@/hooks/useTodo4";
 import type { Todo } from "@/types/todo";
 
 type Props = {
@@ -14,6 +14,7 @@ type Props = {
 
 export const MyTodo = ({ id }: Props) => {
   const { data, isLoading, mutate } = useGetTodo(id);
+  const { trigger, isMutating } = usePutTodo(id);
 
   const item = useMemo<TodoItem | undefined>(() => {
     if (!data) return undefined;
@@ -24,15 +25,26 @@ export const MyTodo = ({ id }: Props) => {
     };
   }, [data]);
 
-  const handleChangeTitle = (title: TodoItem["title"]) => {
+  const handleChangeTitle = async (title: TodoItem["title"]) => {
+    if (!data) return;
+    await trigger({
+      ...data,
+      title,
+    });
     mutate();
   };
 
-  const handleChangeCompleted = (completed: TodoItem["completed"]) => {
+  const handleChangeCompleted = async (completed: TodoItem["completed"]) => {
+    if (!data) return;
+    await trigger({
+      ...data,
+      completed,
+    });
     mutate();
   };
 
   if (isLoading) return <div>データ取得中...</div>;
+  if (isMutating) return <div>データ更新中...</div>;
   if (!item) return <div>データが存在しません</div>;
 
   return (
