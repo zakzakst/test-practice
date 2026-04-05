@@ -7,7 +7,7 @@ export const putFetcher = <PutRequest, PutResponse>(
   { arg }: { arg: PutRequest },
 ) => {
   return fetch(url, {
-    method: "POST",
+    method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(arg),
   }).then((res) => res.json() as Promise<PutResponse>);
