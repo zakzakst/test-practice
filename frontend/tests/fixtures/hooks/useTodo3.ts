@@ -1,10 +1,18 @@
-import * as useTodo from "@/hooks/useTodo3";
 import { vi } from "vitest";
+import type { Todo } from "@/types/todo";
 
-export const useGetTodoFixture = () => {
-  const mockMutate = vi.fn();
-  vi.mock("@/hooks/useTodo3");
-  vi.mocked(useTodo.useGetTodos).mockReturnValue({
+export type UseGetTodosMockResponse = {
+  data: {
+    page: number;
+    total: number;
+    items: Todo[];
+  };
+  isLoading: false;
+  mutate: ReturnType<typeof vi.fn>;
+};
+
+export const createUseGetTodosMock = (mockMutate = vi.fn()) => {
+  const mockResponse: UseGetTodosMockResponse = {
     data: {
       page: 1,
       total: 100,
@@ -12,8 +20,10 @@ export const useGetTodoFixture = () => {
     },
     isLoading: false,
     mutate: mockMutate,
-  });
+  };
+
   return {
     mockMutate,
+    mockResponse,
   };
 };

@@ -1,17 +1,24 @@
 import { describe, test, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { createUseGetTodosMock } from "@/tests/fixtures/hooks/useTodo3";
+import { useGetTodos } from "@/hooks/useTodo3";
 import { Todos } from "@/components/feature/todo/Todos/index3";
-import { useGetTodoFixture } from "@/tests/fixtures/hooks/useTodo3";
+
+vi.mock("@/hooks/useTodo3");
+
+const mockedUseGetTodos = vi.mocked(useGetTodos);
 
 describe("Todos", () => {
-  test("useGetTodosのテスト", async () => {
-    const { mockMutate } = useGetTodoFixture();
+  test("次へボタン押下でmutateが呼ばれる", async () => {
+    const { mockMutate, mockResponse } = createUseGetTodosMock();
+    mockedUseGetTodos.mockReturnValue(mockResponse);
+
     render(<Todos />);
 
-    console.log(mockMutate);
-
     const nextButton = screen.getByTestId("button-pagination-button-next");
-    await fireEvent.click(nextButton);
+    await userEvent.click(nextButton);
+
     expect(mockMutate).toHaveBeenCalled();
   });
 });
