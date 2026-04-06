@@ -17,7 +17,10 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "openapi:merge": "ts-node ./scripts/yaml-merge.ts",
+    "openapi:build-doc": "redocly build-docs openapi/_bundle.yaml --output=openapi/_document.html",
+    "openapi": "npm-run-all openapi:**"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -33,6 +36,7 @@
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
+    "@redocly/cli": "^2.25.4",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.10.7",
@@ -42,6 +46,9 @@
     "eslint-plugin-prettier": "^5.2.2",
     "globals": "^16.0.0",
     "jest": "^30.0.0",
+    "js-yaml": "^4.1.1",
+    "lodash.merge": "^4.6.2",
+    "npm-run-all": "^4.1.5",
     "prettier": "^3.4.2",
     "source-map-support": "^0.5.21",
     "supertest": "^7.0.0",
