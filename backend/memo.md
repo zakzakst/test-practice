@@ -3,6 +3,19 @@ https://github.com/zakzakst/nestjs-practice3/tree/main/src
 
 nest g resource xxxxxs
 
+### 勉強の計画
+- 一旦nestjs側は下記でやる
+  - テストコード書かない
+  - ローカルdbは後回し（固定値のモックを利用）
+  - コードの共通化や保守性は考えない
+- やる順番
+  - 作成日・更新日をデータに持たせる
+  - swaggerでの仕様記載
+  - 一覧getのクエリ反映（keyword, page）
+  - データのバリデーション
+  - ログイン
+  - 画像登録
+
 ### ControllerとServiceの使い分け
 
 Controller は HTTP の処理だけをします。

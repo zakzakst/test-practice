@@ -11,9 +11,9 @@ export class TodosService {
   create(createTodoDto: CreateTodoDto) {
     const newTodo: Todo = {
       ...createTodoDto,
-      id: todos.length + 1,
+      id: this.todos.length + 1,
       completed: false,
-    }
+    };
     this.todos.push(newTodo);
     return newTodo;
   }
@@ -23,7 +23,7 @@ export class TodosService {
   }
 
   findOne(id: number) {
-    const todo = this.todos.find((todo) => todo.id === id);
+    const todo = this.todos.find((t) => t.id === id);
     if (!todo) {
       throw new NotFoundException(`対象のTODOは見つかりませんでした`);
     }
@@ -31,20 +31,26 @@ export class TodosService {
   }
 
   update(id: number, updateTodoDto: UpdateTodoDto) {
+    const index = this.todos.findIndex((t) => t.id === id);
+    if (index === -1) {
+      throw new NotFoundException(`対象のTODOは見つかりませんでした`);
+    }
+    const newTodo = {
+      ...this.todos[index],
+      ...updateTodoDto,
+    };
+    this.todos[index] = newTodo;
+    return newTodo;
+  }
+
+  remove(id: number) {
     const todo = this.todos.find((t) => t.id === id);
     if (!todo) {
       throw new NotFoundException(`対象のTODOは見つかりませんでした`);
     }
+    this.todos = this.todos.filter((t) => t.id !== id);
     return {
-      ...todo,
-      ...updateTodoDto,
-    }
-  }
-
-  remove(id: number) {
-    this.todos = this.todos.filter((todo) => todo.id !== id);
-    return {
-      message: 'TODOを削除しました'
+      message: 'TODOを削除しました',
     };
   }
 }
