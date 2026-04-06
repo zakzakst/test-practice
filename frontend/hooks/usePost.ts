@@ -4,7 +4,7 @@ import type {
   Post,
   CreatePostRequest,
   CreatePostResponse,
-  FindAllPostsQuery,
+  FindAllPostsParams,
   FindAllPostsResponse,
   FindOnePostResponse,
   UpdatePostRequest,
@@ -28,6 +28,12 @@ export const useCreatePost = () => {
 };
 
 // FindAll
+export const useFindAllPosts = (params?: FindAllPostsParams) => {
+  return useSWR(
+    { url: api(`/posts`), params },
+    findAllFetcher<FindAllPostsResponse, FindAllPostsParams>,
+  );
+};
 
 // FindOne
 export const useFindOnePost = (id: Post["id"]) => {
