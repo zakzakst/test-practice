@@ -1,9 +1,17 @@
 import { MyTodo } from "@/components/feature/todo/Todo";
 
-const Page = () => {
+type Props = {
+  params: Promise<{
+    id: string;
+  }>;
+};
+
+const Page = async ({ params }: Props) => {
+  const { id } = await params;
+
   return (
     <div>
-      <MyTodo id={1} />
+      <MyTodo id={Number(id)} />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import {
   TodoListItem,
   type TodoItem,
@@ -25,23 +25,30 @@ export const MyTodo = ({ id }: Props) => {
     };
   }, [data]);
 
-  const handleChangeTitle = async (title: TodoItem["title"]) => {
-    if (!data) return;
-    await trigger({
-      ...data,
-      title,
-    });
-    mutate();
-  };
+  const handleChangeTitle = useCallback(
+    async (title: TodoItem["title"]) => {
+      if (!data) return;
+      await trigger({
+        ...data,
+        title,
+      });
+      // NOTE: triggerが発火したタイミングで自動的にgetが実行されているっぽい？一旦コメントアウトしてSWRの仕様を確認する
+      // mutate();
+    },
+    [trigger, mutate, data],
+  );
 
-  const handleChangeCompleted = async (completed: TodoItem["completed"]) => {
-    if (!data) return;
-    await trigger({
-      ...data,
-      completed,
-    });
-    mutate();
-  };
+  const handleChangeCompleted = useCallback(
+    async (completed: TodoItem["completed"]) => {
+      if (!data) return;
+      await trigger({
+        ...data,
+        completed,
+      });
+      // mutate();
+    },
+    [trigger, mutate, data],
+  );
 
   if (isLoading) return <div>データ取得中...</div>;
   if (isMutating) return <div>データ更新中...</div>;
