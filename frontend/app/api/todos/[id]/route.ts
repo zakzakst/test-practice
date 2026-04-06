@@ -22,19 +22,18 @@ export const GET = async (
   });
 };
 
-// TODO: requestの利用方法自信ないから調べる
 export const PUT = async (
-  request: PutTodoRequest,
+  request: NextRequest,
   context: RouteContext<"/api/todos/[id]">,
 ): Promise<NextResponse<PutTodoResponse>> => {
   const { id } = await context.params;
-  console.log(request);
+  const params: PutTodoRequest = await request.json();
   const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(request),
+    body: JSON.stringify(params),
   });
   const data = (await res.json()) as Todo;
   return NextResponse.json({
