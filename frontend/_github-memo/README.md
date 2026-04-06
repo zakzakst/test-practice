@@ -1,0 +1,1 @@
+github actionsは動かしたくないが、playwrightの初期化時に出力されたコードは知識として取っておきたいので「.github」のディレクトリ名を「\_github-memo」に変更している
