@@ -2,8 +2,12 @@
 
 import { Suspense, use } from "react";
 
+console.log(process.env.NEXT_PUBLIC_TEST);
+
 const mockingEnabledPromise =
-  process.env.NODE_ENV === "development" && typeof window !== "undefined"
+  process.env.NODE_ENV === "development" &&
+  process.env.NEXT_PUBLIC_TEST !== "e2e" &&
+  typeof window !== "undefined"
     ? import("@/lib/msw/browser").then(async ({ worker }) => {
         // モックサーバーを起動
         await worker.start({
