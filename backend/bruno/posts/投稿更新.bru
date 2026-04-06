@@ -1,18 +1,18 @@
 meta {
-  name: TODO更新（404）
+  name: 投稿更新
   type: http
-  seq: 12
+  seq: 4
 }
 
 put {
-  url: http://localhost:3001/todos/404
+  url: http://localhost:3001/posts/1
   body: json
   auth: inherit
 }
 
 body:json {
   {
-    "completed": true
+    "body": "内容更新"
   }
 }
 

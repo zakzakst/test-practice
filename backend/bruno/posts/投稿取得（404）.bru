@@ -1,11 +1,11 @@
 meta {
-  name: TODO削除
+  name: 投稿取得（404）
   type: http
-  seq: 6
+  seq: 3
 }
 
-delete {
-  url: http://localhost:3001/todos/1
+get {
+  url: http://localhost:3001/posts/404
   body: none
   auth: inherit
 }

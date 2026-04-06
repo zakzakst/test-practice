@@ -1,19 +1,13 @@
 meta {
-  name: TODO更新
+  name: TODO取得
   type: http
-  seq: 10
+  seq: 3
 }
 
-put {
+get {
   url: http://localhost:3001/todos/1
-  body: json
+  body: none
   auth: inherit
-}
-
-body:json {
-  {
-    "completed": true
-  }
 }
 
 settings {
