@@ -1,0 +1,23 @@
+meta {
+  name: TODO作成
+  type: http
+  seq: 8
+}
+
+post {
+  url: http://localhost:3001/todos
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "userId": 1,
+    "title": "タイトル"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

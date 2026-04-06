@@ -1,28 +1,50 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
+import { todos } from './db';
+import { Todo } from './entities/todo.entity';
 
 @Injectable()
 export class TodosService {
+  private todos: Todo[] = todos;
+
   create(createTodoDto: CreateTodoDto) {
-    console.log(createTodoDto);
-    return 'This action adds a new todo';
+    const newTodo: Todo = {
+      ...createTodoDto,
+      id: todos.length + 1,
+      completed: false,
+    }
+    this.todos.push(newTodo);
+    return newTodo;
   }
 
   findAll() {
-    return `This action returns all todos`;
+    return this.todos;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} todo`;
+    const todo = this.todos.find((todo) => todo.id === id);
+    if (!todo) {
+      throw new NotFoundException(`対象のTODOは見つかりませんでした`);
+    }
+    return todo;
   }
 
   update(id: number, updateTodoDto: UpdateTodoDto) {
-    console.log(updateTodoDto);
-    return `This action updates a #${id} todo`;
+    const todo = this.todos.find((t) => t.id === id);
+    if (!todo) {
+      throw new NotFoundException(`対象のTODOは見つかりませんでした`);
+    }
+    return {
+      ...todo,
+      ...updateTodoDto,
+    }
   }
 
   remove(id: number) {
-    return `This action removes a #${id} todo`;
+    this.todos = this.todos.filter((todo) => todo.id !== id);
+    return {
+      message: 'TODOを削除しました'
+    };
   }
 }
