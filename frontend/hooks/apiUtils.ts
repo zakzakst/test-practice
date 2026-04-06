@@ -12,3 +12,5 @@ export const putFetcher = <PutRequest, PutResponse>(
     body: JSON.stringify(arg),
   }).then((res) => res.json() as Promise<PutResponse>);
 };
+
+// TODO: deleteとpostも対応する
