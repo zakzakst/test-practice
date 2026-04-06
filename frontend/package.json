@@ -47,6 +47,7 @@
     "eslint-plugin-storybook": "^10.2.13",
     "jsdom": "^28.1.0",
     "msw": "^2.12.14",
+    "msw-storybook-addon": "^2.0.6",
     "playwright": "^1.58.2",
     "shadcn": "^3.8.5",
     "storybook": "^10.2.13",
