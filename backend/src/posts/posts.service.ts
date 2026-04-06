@@ -20,11 +20,25 @@ export class PostsService {
     return newPost;
   }
 
-  findAll() {
+  findAll(keyword?: string, page?: string) {
+    let filteredPosts = this.posts;
+    if (keyword) {
+      filteredPosts = this.posts.filter(
+        (post) => post.title.includes(keyword) || post.body.includes(keyword),
+      );
+    }
+
+    const itemsPerPage = 10; // 1ページあたりの件数
+    const currentPage = page ? parseInt(page, 10) : 1;
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedItems = filteredPosts.slice(startIndex, endIndex);
+
     return {
-      total: this.posts.length,
-      page: 1,
-      items: this.posts,
+      total: filteredPosts.length,
+      page: currentPage,
+      itemsPerPage,
+      items: paginatedItems,
     };
   }
 
