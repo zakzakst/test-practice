@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
-import { Todo } from "@/types/todo";
 import type {
+  Todo,
   GetTodoResponse,
   PutTodoRequest,
   PutTodoResponse,
