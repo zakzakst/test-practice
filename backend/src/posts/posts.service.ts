@@ -28,16 +28,16 @@ export class PostsService {
       );
     }
 
-    const itemsPerPage = 10; // 1ページあたりの件数
+    const limit = 10; // 1ページあたりの件数
     const currentPage = page ? parseInt(page, 10) : 1;
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
+    const startIndex = (currentPage - 1) * limit;
+    const endIndex = startIndex + limit;
     const paginatedItems = filteredPosts.slice(startIndex, endIndex);
 
     return {
       total: filteredPosts.length,
       page: currentPage,
-      itemsPerPage,
+      limit,
       items: paginatedItems,
     };
   }
@@ -71,8 +71,5 @@ export class PostsService {
       throw new NotFoundException(`対象の投稿は見つかりませんでした`);
     }
     this.posts = this.posts.filter((p) => p.id !== id);
-    return {
-      message: '投稿を削除しました',
-    };
   }
 }

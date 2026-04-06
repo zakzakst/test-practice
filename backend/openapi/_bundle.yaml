@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  title: アプリ API
+  version: 1.0.0
+paths:
+  /posts:
+    post:
+      operationId: postPost
+      summary: 投稿を新規作成する
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userId
+                - title
+                - body
+              properties:
+                userId:
+                  type: integer
+                title:
+                  type: string
+                body:
+                  type: string
+      responses:
+        '201':
+          description: 作成成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+    get:
+      operationId: getPosts
+      summary: 投稿一覧を取得する
+      parameters:
+        - name: page
+          in: query
+          description: 表示するページの位置
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: keyword
+          in: query
+          description: 絞り込みキーワード
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 取得成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: 投稿の総数
+                  page:
+                    type: integer
+                    description: 表示しているページの位置
+                  pageSize:
+                    type: integer
+                    description: ページ毎に表示する投稿の数
+                  items:
+                    type: array
+                    description: 投稿の一覧
+                    items:
+                      $ref: '#/components/schemas/Post'
+  /posts/{id}:
+    get:
+      operationId: getPost
+      summary: 投稿を取得する
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 取得成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '404':
+          description: 対象の投稿が見つからない
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      operationId: putPost
+      summary: 投稿を更新する
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userId
+              properties:
+                userId:
+                  type: integer
+                title:
+                  type: string
+                body:
+                  type: string
+      responses:
+        '201':
+          description: 更新成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '404':
+          description: 対象の投稿が見つからない
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deletePost
+      summary: 投稿を削除する
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: 削除成功
+        '404':
+          description: 対象の投稿が見つからない
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Post:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        title:
+          type: string
+        body:
+          type: string
+        createdAt:
+          type: string
+          format: date
+        updatedAt:
+          type: string
+          format: date
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        error:
+          type: string
+        statusCode:
+          type: number
