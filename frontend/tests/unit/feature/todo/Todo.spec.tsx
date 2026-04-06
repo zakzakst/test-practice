@@ -50,6 +50,7 @@ describe("Todo", () => {
   test("usePutTodoのテスト", async () => {
     const mockTrigger = vi.fn();
     const mockMutate = vi.fn();
+    // TODO: SWR用のモック取得関数作成する
     vi.mocked(useGetTodo).mockReturnValue({
       data: {
         id: 0,

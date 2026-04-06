@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { MSWProvider } from "./msw-provider";
 import "./globals.css";
+
+// TODO: instrumentation.tsに移動する
+if (
+  process.env.NEXT_RUNTIME === "nodejs" &&
+  process.env.NODE_ENV === "development"
+) {
+  const { server } = await import("@/lib/msw/server");
+  server.listen();
+}
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +37,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <MSWProvider>{children}</MSWProvider>
       </body>
     </html>
   );
