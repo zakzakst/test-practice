@@ -1,0 +1,21 @@
+meta {
+  name: 投稿一覧取得（クエリあり）
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3001/posts?keyword=投稿1&page=1
+  body: none
+  auth: inherit
+}
+
+params:query {
+  keyword: 投稿1
+  page: 1
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
