@@ -16,7 +16,26 @@ export const createFetcher = <CreateRequest, CreateResponse>(
 };
 
 // FindAll
-export const findAllFetcher = () => {};
+export const findAllFetcher = <FindAllResponse, FindAllParams = undefined>({
+  url,
+  params,
+}: {
+  url: string;
+  params: FindAllParams;
+}) => {
+  const normalizedParams = new URLSearchParams();
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? "null" : value.toString());
+    }
+  });
+  const stringifiedParams = normalizedParams.toString();
+  const formattedUrl =
+    stringifiedParams.length > 0 ? `${url}?${stringifiedParams}` : url;
+  return fetch(formattedUrl).then(
+    (res) => res.json() as Promise<FindAllResponse>,
+  );
+};
 
 // FindOne
 export const findOneFetcher = <FindOneResponse>(url: string) => {

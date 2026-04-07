@@ -17,7 +17,7 @@ export type CreatePostRequest = {
 export type CreatePostResponse = Post;
 
 // FindAll
-export type FindAllPostsQuery = {
+export type FindAllPostsParams = {
   keyword?: string;
   page?: string;
 };
