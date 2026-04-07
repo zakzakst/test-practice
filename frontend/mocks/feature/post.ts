@@ -1,4 +1,4 @@
-import { Post } from "@/types/post";
+import { Post, FindAllPostsResponse } from "@/types/post";
 
 export const PostItemsMock: Post[] = [
   {
@@ -18,3 +18,17 @@ export const PostItemsMock: Post[] = [
     updatedAt: "2025-12-26T03:04:30.155Z",
   },
 ];
+
+export const FindAllPostsResponseMock: FindAllPostsResponse = {
+  total: 100,
+  page: 1,
+  limit: 10,
+  items: PostItemsMock,
+};
+
+export const FindAllPostsResponseEmptyMock: FindAllPostsResponse = {
+  total: 0,
+  page: 1,
+  limit: 10,
+  items: [],
+};
