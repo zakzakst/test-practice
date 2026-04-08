@@ -36,6 +36,7 @@ export const LoginForm = ({ onSubmit }: Props) => {
               email: e.target.value,
             }));
           }}
+          data-testid="login-form-email-input"
         />
       </div>
       <div>
@@ -48,6 +49,7 @@ export const LoginForm = ({ onSubmit }: Props) => {
               password: e.target.value,
             }));
           }}
+          data-testid="login-form-password-input"
         />
       </div>
       <div>
