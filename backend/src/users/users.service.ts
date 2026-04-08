@@ -54,4 +54,12 @@ export class UsersService {
     }
     this.users = this.users.filter((u) => u.id !== id);
   }
+
+  findByEmail(email: string) {
+    const user = this.users.find((u) => u.email === email);
+    if (!user) {
+      throw new NotFoundException(`対象のユーザーは見つかりませんでした`);
+    }
+    return user;
+  }
 }
