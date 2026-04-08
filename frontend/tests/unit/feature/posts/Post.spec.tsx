@@ -1,5 +1,5 @@
 import { MyPost } from "@/components/feature/post/Post";
-import { MSW_DEFAULT_DELAY } from "@/lib/msw/handlers";
+import { MSW_DEFAULT_DELAY } from "@/lib/msw/constants";
 import {
   describe,
   test,
