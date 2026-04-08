@@ -1,5 +1,5 @@
 import { delay, HttpResponse, http } from "msw";
-import { MSW_DEFAULT_DELAY } from ".";
+import { MSW_DEFAULT_DELAY } from "@/lib/msw/constants";
 import {
   CreatePostResponseMock,
   FindAllPostsResponseMock,
