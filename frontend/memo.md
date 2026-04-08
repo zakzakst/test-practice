@@ -1,5 +1,9 @@
 eslintとかでimport順の制御できるようにする
 
+後回し
+- RefreshToken
+- Role設定（adminなど）
+
 API連携も単体テストに含めるのは、不必要に複雑にしてしまう気がした
 
 - MSWをしっかり作ってstorybookへの連携やplaywrightのテストする？
