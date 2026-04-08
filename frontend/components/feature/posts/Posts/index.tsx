@@ -57,6 +57,7 @@ export const Posts = () => {
 
   return (
     <div>
+      {/* TODO: 新規作成ボタンを追加する */}
       <PostItems items={data.items} onMoveDetail={handleMoveDetail} />
       <ButtonPagination
         total={data.total}

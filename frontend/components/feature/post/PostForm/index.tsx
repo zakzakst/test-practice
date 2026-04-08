@@ -4,15 +4,17 @@ import { useState, useCallback } from "react";
 import { Input } from "@/components/ui/input";
 import { Post, CreatePostRequest } from "@/types/post";
 
+export type FromValues = CreatePostRequest;
+
 // TODO: DTO（CreatePostRequest）との連携考える
 type Props = {
   post: Post;
-  onSubmit: (dto: CreatePostRequest) => void;
+  onSubmit: (formValues: FromValues) => void;
 };
 
 // DTOではなく、FormSchemaのほうが適切かもしれない。。
 // コンポーネントではonSubmitもFormSchemaで実行する。APIとのやり取りをする親コンポーネント側でDtoとの変換する
-const CreatePostConverter = (post: Post): CreatePostRequest => {
+const CreatePostConverter = (post: Post): FromValues => {
   return {
     userId: post.userId,
     title: post.title,
@@ -21,7 +23,7 @@ const CreatePostConverter = (post: Post): CreatePostRequest => {
 };
 
 export const PostForm = ({ post, onSubmit }: Props) => {
-  const [dto, setDto] = useState<Partial<CreatePostRequest>>(
+  const [formValues, setFormValues] = useState<Partial<FromValues>>(
     CreatePostConverter(post),
   );
 
@@ -31,31 +33,31 @@ export const PostForm = ({ post, onSubmit }: Props) => {
       userId: 0,
       title: "",
       body: "",
-      ...dto,
+      ...formValues,
     });
   };
 
   return (
     <div>
-      <div>{JSON.stringify(dto)}</div>
+      <div>{JSON.stringify(formValues)}</div>
       <p>
         <Input
-          defaultValue={dto.title}
+          defaultValue={formValues.title}
           // ここの記述共通化できそう。調べる
           onChange={(e) => {
             const value = e.target.value;
-            setDto((current) => ({ ...current, title: value }));
+            setFormValues((current) => ({ ...current, title: value }));
           }}
           data-testid="post-form-title-input"
         />
       </p>
       <p>
         <Input
-          defaultValue={dto.body}
+          defaultValue={formValues.body}
           // ここの記述共通化できそう。調べる
           onChange={(e) => {
             const value = e.target.value;
-            setDto((current) => ({ ...current, body: value }));
+            setFormValues((current) => ({ ...current, body: value }));
           }}
           data-testid="post-form-body-input"
         />
