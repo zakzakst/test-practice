@@ -63,7 +63,7 @@ paths:
                   page:
                     type: integer
                     description: 表示しているページの位置
-                  pageSize:
+                  limit:
                     type: integer
                     description: ページ毎に表示する投稿の数
                   items:
@@ -145,6 +145,60 @@ paths:
           description: 削除成功
         '404':
           description: 対象の投稿が見つからない
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /auth/login:
+    post:
+      operationId: authLogin
+      summary: ログインする
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: ログイン成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+        '401':
+          description: ログイン失敗
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /auth/me:
+    get:
+      operationId: authMe
+      summary: 認証してユーザー情報を取得
+      responses:
+        '200':
+          description: 認証成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+        '401':
+          description: 認証失敗
           content:
             application/json:
               schema:

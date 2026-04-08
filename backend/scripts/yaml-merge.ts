@@ -8,8 +8,9 @@ const loadYaml = (filePath) => {
 };
 
 const posts = loadYaml('openapi/posts.yaml');
+const auth = loadYaml('openapi/auth.yaml');
 
-const merged = merge({}, posts);
+const merged = merge({}, posts, auth);
 merged.info = merged.info || {};
 merged.info.title = 'アプリ API';
 merged.info.version = '1.0.0';
