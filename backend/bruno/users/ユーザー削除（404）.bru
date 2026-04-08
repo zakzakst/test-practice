@@ -1,0 +1,16 @@
+meta {
+  name: ユーザー削除（404）
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:3001/users/404
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
