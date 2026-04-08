@@ -13,7 +13,7 @@ nest g resource xxxxxs
   - [x] 作成日・更新日をデータに持たせる
   - [x] 一覧getのクエリ反映（keyword, page）
   - [x] swaggerでの仕様記載
-  - [ ] ログイン
+  - [x] ログイン
   - [ ] 画像登録
   - [ ] データのバリデーション
 
