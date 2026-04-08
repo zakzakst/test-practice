@@ -1,0 +1,23 @@
+meta {
+  name: ユーザー作成
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3001/users
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email": "new-user@mail.com",
+    "password": "newuserpass"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

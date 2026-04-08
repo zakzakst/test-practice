@@ -1,0 +1,22 @@
+meta {
+  name: ユーザー更新（404）
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3001/users/404
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "password": "updatedpass"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

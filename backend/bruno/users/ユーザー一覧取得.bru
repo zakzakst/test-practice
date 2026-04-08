@@ -1,0 +1,16 @@
+meta {
+  name: ユーザー一覧取得
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3001/users
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
